@@ -5,6 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* เริ่มต้นสำหรับโหมดแสง */
+    body {
+      background-color: #ffffff;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    a {
+      color: #007bff;
+    }
+
+    button {
+      background-color: #f44336;
+      color: white;
+    }
+
+    /* โหมดมืด */
+    body.dark {
+      background-color: #121212;
+      color: #f44336;
+    }
+
+    body.dark a {
+      color: #f44336;
+    }
+
+    body.dark button {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
@@ -15,13 +47,16 @@
         <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Input Specs</a>
         <a href="result.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Results</a>
         <a href="index.html" class="text-red-500 font-bold hover:scale-110 transition ease-in-out duration-300">Back to home</a>
+        <!-- ปุ่มสำหรับสลับโหมดมืด -->
+        <button id="dark-mode-toggle" class="text-white bg-gray-800 px-1 py-1 rounded-lg hover:scale-110 transition ease-in-out duration-300">
+          Toggle Dark Mode
+        </button>
       </div>
     </div>
   </nav>
 
   <section class="flex justify-center items-center min-h-screen">
     <div class="max-w-md mx-auto text-center">
-
       <div id="game-name" class="font-bold text-xl"></div>
 
       <div class="bg-white shadow-lg p-4 mt-4 rounded-lg">
@@ -32,6 +67,22 @@
   </section>
 
   <script>
+    // เช็คว่าผู้ใช้เคยเลือกโหมดมืดหรือไม่
+    if (localStorage.getItem("darkMode") === "enabled") {
+      document.body.classList.add("dark");
+    }
+
+    // ฟังก์ชันสำหรับสลับโหมดมืด
+    document.getElementById("dark-mode-toggle").addEventListener("click", function() {
+      const isDarkMode = document.body.classList.toggle("dark");
+
+      if (isDarkMode) {
+        localStorage.setItem("darkMode", "enabled");
+      } else {
+        localStorage.setItem("darkMode", "disabled");
+      }
+    });
+
     // ดึงข้อมูลจาก localStorage
     const selectedGame = localStorage.getItem("selectedGame");
     const userSpecs = JSON.parse(localStorage.getItem("userSpecs"));
@@ -157,19 +208,16 @@
         userSpecs.ram >= gameSpec.ram &&
         userSpecs.disk >= gameSpec.disk
       ) {
-        compatibilityResultElement.textContent = ` You can play this game on your system. ${selectedGame}.`;
+        compatibilityResultElement.textContent = `Your system meets the minimum requirements to play ${selectedGame}.`;
         compatibilityResultElement.classList.add('bg-green-500', 'text-white');
       } else {
-        compatibilityResultElement.textContent = `Your device doesn’t meet the game’s requirements. ${selectedGame}.`;
+        compatibilityResultElement.textContent = `Your system does NOT meet the minimum requirements to play ${selectedGame}.`;
         compatibilityResultElement.classList.add('bg-red-500', 'text-white');
       }
     } else {
       gameNameElement.textContent = "No game selected or user specs missing.";
     }
     
-    </script>
-    
-  
-</script>
+  </script>
 </body>
 </html>

@@ -5,6 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* เริ่มต้นสำหรับโหมดแสง */
+    body {
+      background-color: #ffffff;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    a {
+      color: #007bff;
+    }
+
+    button {
+      background-color: #f44336;
+      color: white;
+    }
+
+    /* โหมดมืด */
+    body.dark {
+      background-color: #121212;
+      color: #f44336;
+    }
+
+    body.dark a {
+      color: #f44336;
+    }
+
+    body.dark button {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
+      <div class="flex space-x-6">
+        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Home</a>
+        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Input Specs</a>
+        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Results</a>
+        <button id="dark-mode-toggle" class="text-white bg-gray-800 px-1 py-1 rounded-lg hover:scale-110 transition ease-in-out duration-300">
+          Toggle Dark Mode
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="flex justify-center items-center min-h-screen">
+    <div class="max-w-md mx-auto text-center">
+      <h1 class="font-bold text-2xl mb-2">Enter Your Specifications</h1>
+
+      <!-- CPU Dropdown -->
+      <div>
+        <label for="cpu" class="block font-medium">CPU (e.g. Intel Core i5-9400F):</label>
+        <select id="cpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+          <option value="">Select CPU</option>
+        </select>
+      </div>
+
+      <!-- GPU Dropdown -->
+      <div>
+        <label for="gpu" class="block font-medium">GPU (e.g. GTX 1060 or RX 570):</label>
+        <select id="gpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+          <option value="">Select GPU</option>
+        </select>
+      </div>
+
+      <!-- RAM Input -->
+      <div>
+        <label for="ram" class="block font-medium">RAM (GB):</label>
+        <input type="number" id="ram" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      </div>
+
+      <!-- Disk Space Input -->
+      <div>
+        <label for="space" class="block font-medium">Disk Space (GB):</label>
+        <input type="number" id="space" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      </div>
+
+      <button onclick="submitSpecs()" class="bg-red-500 text-white mt-4 shadow-lg rounded w-80 py-2 hover:bg-red-600 transition">Submit</button>
+    </div>
+  </section>
+
   <script>
     // ข้อมูล CPU
     const cpuList = [
@@ -73,54 +157,22 @@
       populateDropdown('cpu', cpuList);
       populateDropdown('gpu', gpuList);
     });
+
+    // เช็คว่าผู้ใช้เคยเลือกโหมดมืดหรือไม่
+    if (localStorage.getItem("darkMode") === "enabled") {
+      document.body.classList.add("dark");
+    }
+
+    // ฟังก์ชันสำหรับสลับโหมดมืด
+    document.getElementById("dark-mode-toggle").addEventListener("click", function() {
+      const isDarkMode = document.body.classList.toggle("dark");
+
+      if (isDarkMode) {
+        localStorage.setItem("darkMode", "enabled");
+      } else {
+        localStorage.setItem("darkMode", "disabled");
+      }
+    });
   </script>
-</head>
-<body>
-  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
-      <div class="flex space-x-6">
-        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Home</a>
-        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Input Specs</a>
-        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Results</a>
-      </div>
-    </div>
-  </nav>
-
-  <section class="flex justify-center items-center min-h-screen">
-    <div class="max-w-md mx-auto text-center">
-      <h1 class="font-bold text-2xl mb-2">Enter Your Specifications</h1>
-
-      <!-- CPU Dropdown -->
-      <div>
-        <label for="cpu" class="block font-medium">CPU (e.g. Intel Core i5-9400F):</label>
-        <select id="cpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
-          <option value="">Select CPU</option>
-        </select>
-      </div>
-
-      <!-- GPU Dropdown -->
-      <div>
-        <label for="gpu" class="block font-medium">GPU (e.g. GTX 1060 or RX 570):</label>
-        <select id="gpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
-          <option value="">Select GPU</option>
-        </select>
-      </div>
-
-      <!-- RAM Input -->
-      <div>
-        <label for="ram" class="block font-medium">RAM (GB):</label>
-        <input type="number" id="ram" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
-      </div>
-
-      <!-- Disk Space Input -->
-      <div>
-        <label for="space" class="block font-medium">Disk Space (GB):</label>
-        <input type="number" id="space" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
-      </div>
-
-      <button onclick="submitSpecs()" class="bg-red-500 text-white mt-4 shadow-lg rounded w-80 py-2 hover:bg-red-600 transition">Submit</button>
-    </div>
-  </section>
 </body>
 </html>
