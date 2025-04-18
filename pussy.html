@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
+      <div class="flex space-x-6">
+        <a href="index.html" class="text-black text-base cursor-pointer">Home</a>
+        <a href="#" class="text-black text-base cursor-pointer">Input Specs</a>
+        <a href="pussy.html" class="text-black text-base cursor-pointer">Results</a>
+        <a href="index.html" class="text-red-500 font-bold">Back to home</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="flex justify-center items-center min-h-screen">
+    <div class="max-w-md mx-auto text-center">
+
+      <div id="game-name" class="font-bold text-xl"></div>
+
+      <div class="bg-white shadow-lg p-4 mt-4 rounded-lg">
+        <h2>Game Compatibility Check</h2>
+        <div id="compatibility-result" class="mt-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ดึงข้อมูลจาก localStorage
+    const selectedGame = localStorage.getItem("selectedGame");
+    const userSpecs = JSON.parse(localStorage.getItem("userSpecs"));
+
+    console.log("Selected Game:", selectedGame);  // ตรวจสอบเกมที่เลือก
+    console.log("User Specs:", userSpecs); // ตรวจสอบสเปคของผู้ใช้
+
+    const gameNameElement = document.getElementById("game-name");
+    const compatibilityResultElement = document.getElementById("compatibility-result");
+
+    // ตัวอย่างข้อมูลสเปคขั้นต่ำของเกม
+    const gameSpecs = {
+  gta5: { 
+    cpu: "Intel Core i5-3470", 
+    gpu: "NVIDIA GTX 660 2GB", 
+    ram: 8, 
+    disk: 72 
+  },
+  witcher3: { 
+    cpu: "Intel Core i5-2500K", 
+    gpu: "NVIDIA GTX 660", 
+    ram: 6, 
+    disk: 35 
+  },
+  portal2: { 
+    cpu: "Intel Core 2 Duo", 
+    gpu: "NVIDIA 8600", 
+    ram: 2, 
+    disk: 8 
+  },
+  csgo: { 
+    cpu: "Intel Core 2 Duo E6600", 
+    gpu: "ATI Radeon HD 2400", 
+    ram: 2, 
+    disk: 15 
+  },
+  tombraider: { 
+    cpu: "Intel Core i3-2100", 
+    gpu: "NVIDIA GTX 460", 
+    ram: 6, 
+    disk: 12 
+  },
+  portal: { 
+    cpu: "Intel Core 2 Duo", 
+    gpu: "NVIDIA GeForce 8500", 
+    ram: 2, 
+    disk: 2 
+  },
+  l4d2: { 
+    cpu: "Intel Core 2 Duo E6600", 
+    gpu: "NVIDIA GeForce 8600", 
+    ram: 2, 
+    disk: 13 
+  },
+  rdr2: { 
+    cpu: "Intel Core i5-2500K", 
+    gpu: "NVIDIA GeForce GTX 770", 
+    ram: 8, 
+    disk: 150 
+  },
+  bioshock: { 
+    cpu: "Intel Core 2 Duo E4500", 
+    gpu: "NVIDIA GeForce 7800", 
+    ram: 2, 
+    disk: 8 
+  }
+};
+
+    if (selectedGame && userSpecs) {
+      gameNameElement.textContent = `Game Selected: ${selectedGame.toUpperCase()}`;
+
+      // ตรวจสอบว่าเครื่องสามารถเล่นเกมได้หรือไม่
+      const gameSpec = gameSpecs[selectedGame];
+      console.log("Game Spec:", gameSpec);  // ตรวจสอบสเปคของเกมที่เลือก
+
+      // เปรียบเทียบสเปค
+      if (userSpecs.ram >= gameSpec.ram && userSpecs.disk >= gameSpec.disk) {
+        compatibilityResultElement.textContent = `Your system meets the minimum requirements to play ${selectedGame}.`;
+        compatibilityResultElement.classList.add('bg-green-500');
+      } else {
+        compatibilityResultElement.textContent = `Your system does NOT meet the minimum requirements to play ${selectedGame}.`;
+        compatibilityResultElement.classList.add('bg-red-500');
+      }
+    } else {
+      gameNameElement.textContent = "No game selected or user specs missing.";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
+      <div class="flex space-x-6">
+        <a href="index.html" class="text-black text-base cursor-pointer">Home</a>
+        <a href="#" class="text-black text-base cursor-pointer">Input Specs</a>
+        <a href="#" class="text-black text-base cursor-pointer">Results</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="flex justify-center items-center min-h-screen">
+    <div class="max-w-md mx-auto text-center">
+      <h1 class="font-bold text-2xl mb-2">Welcome to Game Compatibility Checker</h1>
+      <h4 class="text-gray-600 mb-4">
+        Check if your system can run the latest games. Simply select your game and enter your system specs to get started.
+      </h4>
+
+      <select id="game-select" class="shadow-lg rounded-lg mb-4 px-4 py-2 w-full">
+        <option value="">-- Select a game --</option>
+        <option value="gta5">GTA V</option>
+        <option value="witcher3">The Witcher 3</option>
+        <option value="portal2">Portal 2</option>
+        <option value="csgo">CS:GO</option>
+        <option value="tombraider">Tomb Raider</option>
+        <option value="portal">Portal</option>
+        <option value="l4d2">Left 4 Dead 2</option>
+        <option value="rdr2">Red Dead Redemption 2</option>
+        <option value="bioshock">BioShock</option>
+      </select>
+
+      <button onclick="goToInput()" class="bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-600">
+        Check Compatibility
+      </button>
+    </div>
+  </section>
+
+  <script>
+    function goToInput() {
+      const selectedGame = document.getElementById("game-select").value;
+      if (selectedGame === "") {
+        alert("Please select a game.");
+        return;
+      }
+      localStorage.setItem("selectedGame", selectedGame); // เก็บชื่อเกม
+      window.location.href = "input.html"; // ไปยังหน้า input
+    }
+  </script>
+</body>
+</html>
