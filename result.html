@@ -157,10 +157,10 @@
         userSpecs.ram >= gameSpec.ram &&
         userSpecs.disk >= gameSpec.disk
       ) {
-        compatibilityResultElement.textContent = `Your system meets the minimum requirements to play ${selectedGame}.`;
+        compatibilityResultElement.textContent = ` You can play this game on your system. ${selectedGame}.`;
         compatibilityResultElement.classList.add('bg-green-500', 'text-white');
       } else {
-        compatibilityResultElement.textContent = `Your system does NOT meet the minimum requirements to play ${selectedGame}.`;
+        compatibilityResultElement.textContent = `Your device doesn’t meet the game’s requirements. ${selectedGame}.`;
         compatibilityResultElement.classList.add('bg-red-500', 'text-white');
       }
     } else {
