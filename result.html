@@ -35,89 +35,141 @@
     // ดึงข้อมูลจาก localStorage
     const selectedGame = localStorage.getItem("selectedGame");
     const userSpecs = JSON.parse(localStorage.getItem("userSpecs"));
-
+    
     console.log("Selected Game:", selectedGame);  // ตรวจสอบเกมที่เลือก
     console.log("User Specs:", userSpecs); // ตรวจสอบสเปคของผู้ใช้
-
+    
     const gameNameElement = document.getElementById("game-name");
     const compatibilityResultElement = document.getElementById("compatibility-result");
-
+    
     // ตัวอย่างข้อมูลสเปคขั้นต่ำของเกม
     const gameSpecs = {
-  gta5: { 
-    cpu: "Intel Core i5-3470", 
-    gpu: "NVIDIA GTX 660 2GB", 
-    ram: 8, 
-    disk: 72 
-  },
-  witcher3: { 
-    cpu: "Intel Core i5-2500K", 
-    gpu: "NVIDIA GTX 660", 
-    ram: 6, 
-    disk: 35 
-  },
-  portal2: { 
-    cpu: "Intel Core 2 Duo", 
-    gpu: "NVIDIA 8600", 
-    ram: 2, 
-    disk: 8 
-  },
-  csgo: { 
-    cpu: "Intel Core 2 Duo E6600", 
-    gpu: "ATI Radeon HD 2400", 
-    ram: 2, 
-    disk: 15 
-  },
-  tombraider: { 
-    cpu: "Intel Core i3-2100", 
-    gpu: "NVIDIA GTX 460", 
-    ram: 6, 
-    disk: 12 
-  },
-  portal: { 
-    cpu: "Intel Core 2 Duo", 
-    gpu: "NVIDIA GeForce 8500", 
-    ram: 2, 
-    disk: 2 
-  },
-  l4d2: { 
-    cpu: "Intel Core 2 Duo E6600", 
-    gpu: "NVIDIA GeForce 8600", 
-    ram: 2, 
-    disk: 13 
-  },
-  rdr2: { 
-    cpu: "Intel Core i5-2500K", 
-    gpu: "NVIDIA GeForce GTX 770", 
-    ram: 8, 
-    disk: 150 
-  },
-  bioshock: { 
-    cpu: "Intel Core 2 Duo E4500", 
-    gpu: "NVIDIA GeForce 7800", 
-    ram: 2, 
-    disk: 8 
-  }
-};
-
+      gta5: { 
+        cpu: 15000,  // คะแนน CPU จาก Intel Core i5-3470
+        gpu: 15000,  // คะแนน GPU จาก NVIDIA GTX 660
+        ram: 8, 
+        disk: 72 
+      },
+      witcher3: { 
+        cpu: 17000, // คะแนน CPU จาก Intel Core i5-2500K
+        gpu: 16000, // คะแนน GPU จาก NVIDIA GTX 660
+        ram: 6, 
+        disk: 35 
+      },
+      portal2: { 
+        cpu: 10000, // คะแนน CPU จาก Intel Core 2 Duo
+        gpu: 12000, // คะแนน GPU จาก NVIDIA 8600
+        ram: 2, 
+        disk: 8 
+      },
+      csgo: { 
+        cpu: 9000,  // คะแนน CPU จาก Intel Core 2 Duo E6600
+        gpu: 10000, // คะแนน GPU จาก ATI Radeon HD 2400
+        ram: 2, 
+        disk: 15 
+      },
+      tombraider: { 
+        cpu: 12000, // คะแนน CPU จาก Intel Core i3-2100
+        gpu: 13000, // คะแนน GPU จาก NVIDIA GTX 460
+        ram: 6, 
+        disk: 12 
+      },
+      portal: { 
+        cpu: 10000, // คะแนน CPU จาก Intel Core 2 Duo
+        gpu: 11000, // คะแนน GPU จาก NVIDIA GeForce 8500
+        ram: 2, 
+        disk: 2 
+      },
+      l4d2: { 
+        cpu: 9000,  // คะแนน CPU จาก Intel Core 2 Duo E6600
+        gpu: 10500, // คะแนน GPU จาก NVIDIA GeForce 8600
+        ram: 2, 
+        disk: 13 
+      },
+      rdr2: { 
+        cpu: 17000, // คะแนน CPU จาก Intel Core i5-2500K
+        gpu: 20000, // คะแนน GPU จาก NVIDIA GeForce GTX 770
+        ram: 8, 
+        disk: 150 
+      },
+      bioshock: { 
+        cpu: 8500,  // คะแนน CPU จาก Intel Core 2 Duo E4500
+        gpu: 9000,  // คะแนน GPU จาก NVIDIA GeForce 7800
+        ram: 2, 
+        disk: 8 
+      }
+    };
+    
+    // ข้อมูล CPU และ GPU ใหม่ที่แทนค่าเดิม
+    const cpuList = [
+      { name: "Intel Core i9-13900K", score: 35000 },
+      { name: "AMD Ryzen 9 7950X", score: 34000 },
+      { name: "Intel Core i7-13700K", score: 30000 },
+      { name: "AMD Ryzen 9 7900X", score: 29000 },
+      { name: "Intel Core i5-13600K", score: 24000 },
+      { name: "AMD Ryzen 7 7800X", score: 27000 },
+      { name: "Intel Core i9-11900K", score: 28000 },
+      { name: "AMD Ryzen 7 7700X", score: 26000 },
+      { name: "Intel Core i7-12700K", score: 25000 },
+      { name: "AMD Ryzen 5 7600X", score: 23000 }
+    ];
+    
+    const gpuList = [
+      { name: "NVIDIA GTX 1060", score: 12000 },
+      { name: "AMD RX 570", score: 11000 },
+      { name: "NVIDIA RTX 3080", score: 30000 },
+      { name: "AMD RX 6800", score: 25000 },
+      { name: "NVIDIA RTX 2080", score: 28000 },
+      { name: "AMD RX 5700 XT", score: 22000 },
+      { name: "NVIDIA GTX 1660", score: 17000 },
+      { name: "AMD RX 5500 XT", score: 16000 },
+      { name: "NVIDIA RTX 3060", score: 20000 },
+      { name: "NVIDIA RTX 3070", score: 27000 }
+    ];
+    
+    // ฟังก์ชันสำหรับคำนวณคะแนน CPU
+    function getCpuScore(cpuName) {
+      const cpu = cpuList.find(c => c.name === cpuName);
+      return cpu ? cpu.score : 0; // ถ้าไม่พบจะคืนค่า 0
+    }
+    
+    // ฟังก์ชันสำหรับคำนวณคะแนน GPU
+    function getGpuScore(gpuName) {
+      const gpu = gpuList.find(g => g.name === gpuName);
+      return gpu ? gpu.score : 0; // ถ้าไม่พบจะคืนค่า 0
+    }
+    
     if (selectedGame && userSpecs) {
       gameNameElement.textContent = `Game Selected: ${selectedGame.toUpperCase()}`;
-
+    
       // ตรวจสอบว่าเครื่องสามารถเล่นเกมได้หรือไม่
       const gameSpec = gameSpecs[selectedGame];
       console.log("Game Spec:", gameSpec);  // ตรวจสอบสเปคของเกมที่เลือก
-
+    
+      // คำนวณคะแนน CPU และ GPU
+      const userCpuScore = getCpuScore(userSpecs.cpu);
+      const userGpuScore = getGpuScore(userSpecs.gpu);
+    
       // เปรียบเทียบสเปค
-      if (userSpecs.ram >= gameSpec.ram && userSpecs.disk >= gameSpec.disk) {
+      if (
+        userCpuScore >= gameSpec.cpu &&
+        userGpuScore >= gameSpec.gpu &&
+        userSpecs.ram >= gameSpec.ram &&
+        userSpecs.disk >= gameSpec.disk
+      ) {
         compatibilityResultElement.textContent = `Your system meets the minimum requirements to play ${selectedGame}.`;
-        compatibilityResultElement.classList.add('bg-green-500');
+        compatibilityResultElement.classList.add('bg-green-500', 'text-white');
       } else {
         compatibilityResultElement.textContent = `Your system does NOT meet the minimum requirements to play ${selectedGame}.`;
-        compatibilityResultElement.classList.add('bg-red-500');
+        compatibilityResultElement.classList.add('bg-red-500', 'text-white');
       }
     } else {
       gameNameElement.textContent = "No game selected or user specs missing.";
     }
-  </script>
+    
+    </script>
+    
+  
+</script>
 </body>
 </html>

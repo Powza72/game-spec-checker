@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('space', space);
     
             // ไปหน้าแสดงผล
-            window.location.href = 'pussy.html';
+            window.location.href = 'RE.html';
         }
     });
       

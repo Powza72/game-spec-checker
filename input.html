@@ -5,48 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
-      <div class="flex space-x-6">
-        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Home</a>
-        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Input Specs</a>
-        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Results</a>
-      </div>
-    </div>
-  </nav>
-
-  <section class="flex justify-center items-center min-h-screen">
-    <div class="max-w-md mx-auto text-center">
-      <h1 class="font-bold text-2xl mb-2">Enter Your Specifications</h1>
-
-      <div>
-        <label for="cpu" class="block font-medium">CPU (e.g. Intel Core i5-9400F):</label>
-        <input type="text" id="cpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300" placeholder="e.g. Intel Core i5-9400F">
-      </div>
-      
-      <div>
-        <label for="gpu" class="block font-medium">GPU (e.g. GTX 1060 or RX 570):</label>
-        <input type="text" id="gpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300" placeholder="e.g. GTX 1060 or RX 570">
-      </div>
-
-      <div>
-        <label for="ram" class="block font-medium">RAM (GB):</label>
-        <input type="number" id="ram" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
-      </div>
-
-      <div>
-        <label for="space" class="block font-medium">Disk Space (GB):</label>
-        <input type="number" id="space" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
-      </div>
-
-      <button onclick="submitSpecs()" class="bg-red-500 text-white mt-4 shadow-lg rounded w-80 py-2 hover:bg-red-600 transition">Submit</button>
-    </div>
-  </section>
-
   <script>
+    // ข้อมูล CPU
+    const cpuList = [
+      { name: "Intel Core i9-13900K", score: 35000 },
+      { name: "AMD Ryzen 9 7950X", score: 34000 },
+      { name: "Intel Core i7-13700K", score: 30000 },
+      { name: "AMD Ryzen 9 7900X", score: 29000 },
+      { name: "Intel Core i5-13600K", score: 24000 },
+      { name: "AMD Ryzen 7 7800X", score: 27000 },
+      { name: "Intel Core i9-11900K", score: 28000 },
+      { name: "AMD Ryzen 7 7700X", score: 26000 },
+      { name: "Intel Core i7-12700K", score: 25000 },
+      { name: "AMD Ryzen 5 7600X", score: 23000 },
+    ];
+
+    // ข้อมูล GPU
+    const gpuList = [
+      { name: "NVIDIA GTX 1060", score: 12000 },
+      { name: "AMD RX 570", score: 11000 },
+      { name: "NVIDIA RTX 3080", score: 30000 },
+      { name: "AMD RX 6800", score: 25000 },
+      { name: "NVIDIA RTX 2080", score: 28000 },
+      { name: "AMD RX 5700 XT", score: 22000 },
+      { name: "NVIDIA GTX 1660", score: 17000 },
+      { name: "AMD RX 5500 XT", score: 16000 },
+      { name: "NVIDIA RTX 3060", score: 20000 },
+      { name: "NVIDIA RTX 3070", score: 27000 },
+    ];
+
+    // ฟังก์ชันเพื่อเติมข้อมูลลงใน dropdown
+    function populateDropdown(elementId, dataList) {
+      const selectElement = document.getElementById(elementId);
+      dataList.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.name;
+        option.textContent = item.name;
+        selectElement.appendChild(option);
+      });
+    }
+
+    // ฟังก์ชันเมื่อกด Submit
     function submitSpecs() {
       const cpu = document.getElementById("cpu").value;
       const gpu = document.getElementById("gpu").value;
@@ -66,8 +65,62 @@
       };
 
       localStorage.setItem("userSpecs", JSON.stringify(userSpecs)); // เก็บสเปคของผู้ใช้
-      window.location.href = "result.html"; // ไปยังหน้า pussy.html
+      window.location.href = "result.html"; // ไปยังหน้า result.html
     }
+
+    // เมื่อโหลดหน้าให้เติมข้อมูล CPU และ GPU ลงใน dropdown
+    document.addEventListener('DOMContentLoaded', () => {
+      populateDropdown('cpu', cpuList);
+      populateDropdown('gpu', gpuList);
+    });
   </script>
+</head>
+<body>
+  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
+      <div class="flex space-x-6">
+        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Home</a>
+        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Input Specs</a>
+        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Results</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="flex justify-center items-center min-h-screen">
+    <div class="max-w-md mx-auto text-center">
+      <h1 class="font-bold text-2xl mb-2">Enter Your Specifications</h1>
+
+      <!-- CPU Dropdown -->
+      <div>
+        <label for="cpu" class="block font-medium">CPU (e.g. Intel Core i5-9400F):</label>
+        <select id="cpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+          <option value="">Select CPU</option>
+        </select>
+      </div>
+
+      <!-- GPU Dropdown -->
+      <div>
+        <label for="gpu" class="block font-medium">GPU (e.g. GTX 1060 or RX 570):</label>
+        <select id="gpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+          <option value="">Select GPU</option>
+        </select>
+      </div>
+
+      <!-- RAM Input -->
+      <div>
+        <label for="ram" class="block font-medium">RAM (GB):</label>
+        <input type="number" id="ram" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      </div>
+
+      <!-- Disk Space Input -->
+      <div>
+        <label for="space" class="block font-medium">Disk Space (GB):</label>
+        <input type="number" id="space" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      </div>
+
+      <button onclick="submitSpecs()" class="bg-red-500 text-white mt-4 shadow-lg rounded w-80 py-2 hover:bg-red-600 transition">Submit</button>
+    </div>
+  </section>
 </body>
 </html>
