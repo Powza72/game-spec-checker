@@ -94,61 +94,29 @@
     const compatibilityResultElement = document.getElementById("compatibility-result");
     
     const gameSpecs = {
-  gta5: { 
-    cpu: 12000,  // Core i5-3470 จริง ๆ อยู่ราว 11k-12k
-    gpu: 11000,  // GTX 660 ต่ำกว่า GTX 1060 มาก
-    ram: 8, 
-    disk: 72 
-  },
-  witcher3: { 
-    cpu: 12000, // Core i5-2500K ≈ 11k-12k
-    gpu: 12000, // GTX 660 ≈ 11k-12k เช่นกัน
-    ram: 6, 
-    disk: 35 
-  },
-  portal2: { 
-    cpu: 7000,  // Core 2 Duo ≈ 6k-7k
-    gpu: 8000,  // 8600 ≈ 7k-8k
-    ram: 2, 
-    disk: 8 
-  },
-  csgo: { 
-    cpu: 7000,  // E6600 ≈ 6k-7k
-    gpu: 7000,  // HD 2400 ≈ 6k-7k
-    ram: 2, 
-    disk: 15 
-  },
-  tombraider: { 
-    cpu: 10000, // i3-2100 ≈ 10k
-    gpu: 10000, // GTX 460 ≈ 10k
-    ram: 6, 
-    disk: 12 
-  },
-  portal: { 
-    cpu: 6000,  // Core 2 Duo (ต่ำกว่า Portal 2)
-    gpu: 7000,  // GeForce 8500 ≈ 6k-7k
-    ram: 2, 
-    disk: 2 
-  },
-  l4d2: { 
-    cpu: 7000,  // E6600 ≈ 6k-7k
-    gpu: 8000,  // 8600 ≈ 7k-8k
-    ram: 2, 
-    disk: 13 
-  },
-  rdr2: { 
-    cpu: 15000, // i5-2500K ไม่ควรเกิน 15k
-    gpu: 14000, // GTX 770 ≈ 13k-14k
-    ram: 8, 
-    disk: 150 
-  },
-  bioshock: { 
-    cpu: 6000,  // E4500 ≈ 6k
-    gpu: 7000,  // GeForce 7800 ≈ 7k
-    ram: 2, 
-    disk: 8 
-  }
+  gta5: { cpu: 12000, gpu: 11000, ram: 8, disk: 72 },
+  witcher3: { cpu: 12000, gpu: 12000, ram: 6, disk: 35 },
+  portal2: { cpu: 7000, gpu: 8000, ram: 2, disk: 8 },
+  csgo: { cpu: 7000, gpu: 7000, ram: 2, disk: 15 },
+  tombraider: { cpu: 10000, gpu: 10000, ram: 6, disk: 12 },
+  portal: { cpu: 6000, gpu: 7000, ram: 2, disk: 2 },
+  l4d2: { cpu: 7000, gpu: 8000, ram: 2, disk: 13 },
+  rdr2: { cpu: 15000, gpu: 14000, ram: 8, disk: 150 },
+  bioshock: { cpu: 6000, gpu: 7000, ram: 2, disk: 8 },
+
+  cyberpunk2077: { cpu: 18000, gpu: 17000, ram: 16, disk: 70 },
+  valorant: { cpu: 8000, gpu: 8000, ram: 4, disk: 25 },
+  minecraft: { cpu: 6000, gpu: 6000, ram: 4, disk: 1 },
+  overwatch: { cpu: 10000, gpu: 10000, ram: 6, disk: 30 },
+  apexlegends: { cpu: 13000, gpu: 13000, ram: 8, disk: 56 },
+  fortnite: { cpu: 11000, gpu: 11000, ram: 8, disk: 30 },
+  pubg: { cpu: 12000, gpu: 12000, ram: 8, disk: 30 },
+  leagueoflegends: { cpu: 5000, gpu: 5000, ram: 2, disk: 15 },
+  dota2: { cpu: 7000, gpu: 7000, ram: 4, disk: 15 },
+  amongus: { cpu: 3000, gpu: 3000, ram: 1, disk: 0.5 },
+  eldenring: { cpu: 16000, gpu: 16000, ram: 12, disk: 60 }
 };
+
 
     
     // ข้อมูล CPU และ GPU ใหม่ที่แทนค่าเดิม

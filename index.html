@@ -62,16 +62,40 @@
 
       <select id="game-select" class="shadow-lg rounded-lg mb-4 px-4 py-2 w-full">
         <option value="">-- Select a game --</option>
-        <option value="gta5">GTA V</option>
-        <option value="witcher3">The Witcher 3</option>
-        <option value="portal2">Portal 2</option>
-        <option value="csgo">CS:GO</option>
-        <option value="tombraider">Tomb Raider</option>
-        <option value="portal">Portal</option>
-        <option value="l4d2">Left 4 Dead 2</option>
-        <option value="rdr2">Red Dead Redemption 2</option>
-        <option value="bioshock">BioShock</option>
+      
+        <optgroup label="AAA Games">
+          <option value="gta5">GTA V</option>
+          <option value="witcher3">The Witcher 3</option>
+          <option value="rdr2">Red Dead Redemption 2</option>
+          <option value="cyberpunk2077">Cyberpunk 2077</option>
+          <option value="eldenring">Elden Ring</option>
+        </optgroup>
+      
+        <optgroup label="Multiplayer/Online">
+          <option value="valorant">Valorant</option>
+          <option value="apexlegends">Apex Legends</option>
+          <option value="fortnite">Fortnite</option>
+          <option value="pubg">PUBG</option>
+          <option value="overwatch">Overwatch</option>
+          <option value="leagueoflegends">League of Legends</option>
+          <option value="dota2">Dota 2</option>
+          <option value="amongus">Among Us</option>
+        </optgroup>
+      
+        <optgroup label="Classic / Story">
+          <option value="portal2">Portal 2</option>
+          <option value="portal">Portal</option>
+          <option value="csgo">CS:GO</option>
+          <option value="l4d2">Left 4 Dead 2</option>
+          <option value="tombraider">Tomb Raider</option>
+          <option value="bioshock">BioShock</option>
+        </optgroup>
+      
+        <optgroup label="Sandbox">
+          <option value="minecraft">Minecraft</option>
+        </optgroup>
       </select>
+      
 
       <button onclick="goToInput()" class="bg-red-500 text-white py-2 px-4 rounded-full hover:scale-110 transition ease-in-out duration-300">
         Check Compatibility
