@@ -92,17 +92,29 @@
   <script>
     // ข้อมูล CPU
     const cpuList = [
-  { name: "Intel Core i9-13900K", score: 35500 },
-  { name: "AMD Ryzen 9 7950X", score: 34500 },
-  { name: "AMD Ryzen 7 7800X3D", score: 33500 },
-  { name: "Intel Core i7-13700K", score: 30500 },
-  { name: "AMD Ryzen 9 7900X", score: 29500 },
-  { name: "Intel Core i5-13600K", score: 24500 },
-  { name: "AMD Ryzen 7 7700X", score: 26500 },
-  { name: "Intel Core i7-12700K", score: 25500 },
+  { name: "Intel Core i9-13900K", score: 35000 },
+  { name: "AMD Ryzen 9 7950X", score: 34000 },
+  { name: "Intel Core i7-13700K", score: 30000 },
+  { name: "AMD Ryzen 9 7900X", score: 29000 },
+  { name: "Intel Core i9-11900K", score: 28000 },
+  { name: "AMD Ryzen 7 7800X", score: 27000 },
+  { name: "AMD Ryzen 7 7700X", score: 26000 },
+  { name: "Intel Core i7-12700K", score: 25000 },
+  { name: "Intel Core i5-13600K", score: 24000 },
   { name: "AMD Ryzen 5 7600X", score: 23000 },
-  { name: "Intel Core i9-11900K", score: 22000 }
+  { name: "Intel Core i5-12600K", score: 22000 },
+  { name: "AMD Ryzen 5 7600", score: 21000 },
+  { name: "Intel Core i5-12400F", score: 20000 },
+  { name: "Intel Core i7-11700K", score: 21000 },
+  { name: "AMD Ryzen 5 5600X", score: 22000 },
+  { name: "Intel Core i9-10900K", score: 23000 },
+  { name: "AMD Ryzen 7 5800X", score: 24000 },
+  { name: "Intel Core i5-11400F", score: 18000 },
+  { name: "AMD Ryzen 3 3300X", score: 17000 },
+  { name: "Intel Core i3-12100F", score: 15000 },
 ];
+
+cpuList.sort((a, b) => b.score - a.score);  // เรียงลำดับจากคะแนนสูงไปต่ำ
 
 const gpuList = [
   { name: "NVIDIA RTX 3080", score: 29000 },
@@ -114,8 +126,21 @@ const gpuList = [
   { name: "NVIDIA GTX 1660", score: 14000 },
   { name: "AMD RX 5500 XT", score: 12000 },
   { name: "NVIDIA GTX 1060", score: 11000 },
-  { name: "AMD RX 570", score: 9000 }
+  { name: "AMD RX 570", score: 9000 },
+  { name: "NVIDIA RTX 4090", score: 40000 },
+  { name: "NVIDIA RTX 4070 Ti", score: 35000 },
+  { name: "AMD RX 6900 XT", score: 33000 },
+  { name: "NVIDIA RTX 4080", score: 36000 },
+  { name: "NVIDIA GTX 1650", score: 10000 },
+  { name: "NVIDIA GTX 1070", score: 15000 },
+  { name: "AMD RX 580", score: 15000 },
+  { name: "NVIDIA GTX 1080 Ti", score: 17000 },
+  { name: "AMD RX 5700", score: 16000 },
+  { name: "NVIDIA RTX 3060 Ti", score: 23000 }
 ];
+
+gpuList.sort((a, b) => b.score - a.score);  // เรียงลำดับจากคะแนนสูงไปต่ำ
+
     // ฟังก์ชันเพื่อเติมข้อมูลลงใน dropdown
     function populateDropdown(elementId, dataList) {
       const selectElement = document.getElementById(elementId);
