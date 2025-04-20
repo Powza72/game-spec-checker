@@ -92,32 +92,30 @@
   <script>
     // ข้อมูล CPU
     const cpuList = [
-      { name: "Intel Core i9-13900K", score: 35000 },
-      { name: "AMD Ryzen 9 7950X", score: 34000 },
-      { name: "Intel Core i7-13700K", score: 30000 },
-      { name: "AMD Ryzen 9 7900X", score: 29000 },
-      { name: "Intel Core i5-13600K", score: 24000 },
-      { name: "AMD Ryzen 7 7800X", score: 27000 },
-      { name: "Intel Core i9-11900K", score: 28000 },
-      { name: "AMD Ryzen 7 7700X", score: 26000 },
-      { name: "Intel Core i7-12700K", score: 25000 },
-      { name: "AMD Ryzen 5 7600X", score: 23000 },
-    ];
+  { name: "Intel Core i9-13900K", score: 35500 },
+  { name: "AMD Ryzen 9 7950X", score: 34500 },
+  { name: "AMD Ryzen 7 7800X3D", score: 33500 },
+  { name: "Intel Core i7-13700K", score: 30500 },
+  { name: "AMD Ryzen 9 7900X", score: 29500 },
+  { name: "Intel Core i5-13600K", score: 24500 },
+  { name: "AMD Ryzen 7 7700X", score: 26500 },
+  { name: "Intel Core i7-12700K", score: 25500 },
+  { name: "AMD Ryzen 5 7600X", score: 23000 },
+  { name: "Intel Core i9-11900K", score: 22000 }
+];
 
-    // ข้อมูล GPU
-    const gpuList = [
-      { name: "NVIDIA GTX 1060", score: 12000 },
-      { name: "AMD RX 570", score: 11000 },
-      { name: "NVIDIA RTX 3080", score: 30000 },
-      { name: "AMD RX 6800", score: 25000 },
-      { name: "NVIDIA RTX 2080", score: 28000 },
-      { name: "AMD RX 5700 XT", score: 22000 },
-      { name: "NVIDIA GTX 1660", score: 17000 },
-      { name: "AMD RX 5500 XT", score: 16000 },
-      { name: "NVIDIA RTX 3060", score: 20000 },
-      { name: "NVIDIA RTX 3070", score: 27000 },
-    ];
-
+const gpuList = [
+  { name: "NVIDIA RTX 3080", score: 29000 },
+  { name: "NVIDIA RTX 3070", score: 24000 },
+  { name: "AMD RX 6800", score: 25000 },
+  { name: "NVIDIA RTX 2080", score: 22000 },
+  { name: "AMD RX 5700 XT", score: 20000 },
+  { name: "NVIDIA RTX 3060", score: 18000 },
+  { name: "NVIDIA GTX 1660", score: 14000 },
+  { name: "AMD RX 5500 XT", score: 12000 },
+  { name: "NVIDIA GTX 1060", score: 11000 },
+  { name: "AMD RX 570", score: 9000 }
+];
     // ฟังก์ชันเพื่อเติมข้อมูลลงใน dropdown
     function populateDropdown(elementId, dataList) {
       const selectElement = document.getElementById(elementId);

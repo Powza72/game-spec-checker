@@ -93,90 +93,91 @@
     const gameNameElement = document.getElementById("game-name");
     const compatibilityResultElement = document.getElementById("compatibility-result");
     
-    // ตัวอย่างข้อมูลสเปคขั้นต่ำของเกม
     const gameSpecs = {
-      gta5: { 
-        cpu: 15000,  // คะแนน CPU จาก Intel Core i5-3470
-        gpu: 15000,  // คะแนน GPU จาก NVIDIA GTX 660
-        ram: 8, 
-        disk: 72 
-      },
-      witcher3: { 
-        cpu: 17000, // คะแนน CPU จาก Intel Core i5-2500K
-        gpu: 16000, // คะแนน GPU จาก NVIDIA GTX 660
-        ram: 6, 
-        disk: 35 
-      },
-      portal2: { 
-        cpu: 10000, // คะแนน CPU จาก Intel Core 2 Duo
-        gpu: 12000, // คะแนน GPU จาก NVIDIA 8600
-        ram: 2, 
-        disk: 8 
-      },
-      csgo: { 
-        cpu: 9000,  // คะแนน CPU จาก Intel Core 2 Duo E6600
-        gpu: 10000, // คะแนน GPU จาก ATI Radeon HD 2400
-        ram: 2, 
-        disk: 15 
-      },
-      tombraider: { 
-        cpu: 12000, // คะแนน CPU จาก Intel Core i3-2100
-        gpu: 13000, // คะแนน GPU จาก NVIDIA GTX 460
-        ram: 6, 
-        disk: 12 
-      },
-      portal: { 
-        cpu: 10000, // คะแนน CPU จาก Intel Core 2 Duo
-        gpu: 11000, // คะแนน GPU จาก NVIDIA GeForce 8500
-        ram: 2, 
-        disk: 2 
-      },
-      l4d2: { 
-        cpu: 9000,  // คะแนน CPU จาก Intel Core 2 Duo E6600
-        gpu: 10500, // คะแนน GPU จาก NVIDIA GeForce 8600
-        ram: 2, 
-        disk: 13 
-      },
-      rdr2: { 
-        cpu: 17000, // คะแนน CPU จาก Intel Core i5-2500K
-        gpu: 20000, // คะแนน GPU จาก NVIDIA GeForce GTX 770
-        ram: 8, 
-        disk: 150 
-      },
-      bioshock: { 
-        cpu: 8500,  // คะแนน CPU จาก Intel Core 2 Duo E4500
-        gpu: 9000,  // คะแนน GPU จาก NVIDIA GeForce 7800
-        ram: 2, 
-        disk: 8 
-      }
-    };
+  gta5: { 
+    cpu: 12000,  // Core i5-3470 จริง ๆ อยู่ราว 11k-12k
+    gpu: 11000,  // GTX 660 ต่ำกว่า GTX 1060 มาก
+    ram: 8, 
+    disk: 72 
+  },
+  witcher3: { 
+    cpu: 12000, // Core i5-2500K ≈ 11k-12k
+    gpu: 12000, // GTX 660 ≈ 11k-12k เช่นกัน
+    ram: 6, 
+    disk: 35 
+  },
+  portal2: { 
+    cpu: 7000,  // Core 2 Duo ≈ 6k-7k
+    gpu: 8000,  // 8600 ≈ 7k-8k
+    ram: 2, 
+    disk: 8 
+  },
+  csgo: { 
+    cpu: 7000,  // E6600 ≈ 6k-7k
+    gpu: 7000,  // HD 2400 ≈ 6k-7k
+    ram: 2, 
+    disk: 15 
+  },
+  tombraider: { 
+    cpu: 10000, // i3-2100 ≈ 10k
+    gpu: 10000, // GTX 460 ≈ 10k
+    ram: 6, 
+    disk: 12 
+  },
+  portal: { 
+    cpu: 6000,  // Core 2 Duo (ต่ำกว่า Portal 2)
+    gpu: 7000,  // GeForce 8500 ≈ 6k-7k
+    ram: 2, 
+    disk: 2 
+  },
+  l4d2: { 
+    cpu: 7000,  // E6600 ≈ 6k-7k
+    gpu: 8000,  // 8600 ≈ 7k-8k
+    ram: 2, 
+    disk: 13 
+  },
+  rdr2: { 
+    cpu: 15000, // i5-2500K ไม่ควรเกิน 15k
+    gpu: 14000, // GTX 770 ≈ 13k-14k
+    ram: 8, 
+    disk: 150 
+  },
+  bioshock: { 
+    cpu: 6000,  // E4500 ≈ 6k
+    gpu: 7000,  // GeForce 7800 ≈ 7k
+    ram: 2, 
+    disk: 8 
+  }
+};
+
     
     // ข้อมูล CPU และ GPU ใหม่ที่แทนค่าเดิม
     const cpuList = [
-      { name: "Intel Core i9-13900K", score: 35000 },
-      { name: "AMD Ryzen 9 7950X", score: 34000 },
-      { name: "Intel Core i7-13700K", score: 30000 },
-      { name: "AMD Ryzen 9 7900X", score: 29000 },
-      { name: "Intel Core i5-13600K", score: 24000 },
-      { name: "AMD Ryzen 7 7800X", score: 27000 },
-      { name: "Intel Core i9-11900K", score: 28000 },
-      { name: "AMD Ryzen 7 7700X", score: 26000 },
-      { name: "Intel Core i7-12700K", score: 25000 },
-      { name: "AMD Ryzen 5 7600X", score: 23000 }
-    ];
+  { name: "Intel Core i9-13900K", score: 35500 },
+  { name: "AMD Ryzen 9 7950X", score: 34500 },
+  { name: "AMD Ryzen 7 7800X3D", score: 33500 },
+  { name: "Intel Core i7-13700K", score: 30500 },
+  { name: "AMD Ryzen 9 7900X", score: 29500 },
+  { name: "Intel Core i5-13600K", score: 24500 },
+  { name: "AMD Ryzen 7 7700X", score: 26500 },
+  { name: "Intel Core i7-12700K", score: 25500 },
+  { name: "AMD Ryzen 5 7600X", score: 23000 },
+  { name: "Intel Core i9-11900K", score: 22000 }
+];
+
     
-    const gpuList = [
-      { name: "NVIDIA GTX 1060", score: 12000 },
-      { name: "AMD RX 570", score: 11000 },
-      { name: "NVIDIA RTX 3080", score: 30000 },
-      { name: "AMD RX 6800", score: 25000 },
-      { name: "NVIDIA RTX 2080", score: 28000 },
-      { name: "AMD RX 5700 XT", score: 22000 },
-      { name: "NVIDIA GTX 1660", score: 17000 },
-      { name: "AMD RX 5500 XT", score: 16000 },
-      { name: "NVIDIA RTX 3060", score: 20000 },
-      { name: "NVIDIA RTX 3070", score: 27000 }
-    ];
+const gpuList = [
+  { name: "NVIDIA RTX 3080", score: 29000 },
+  { name: "NVIDIA RTX 3070", score: 24000 },
+  { name: "AMD RX 6800", score: 25000 },
+  { name: "NVIDIA RTX 2080", score: 22000 },
+  { name: "AMD RX 5700 XT", score: 20000 },
+  { name: "NVIDIA RTX 3060", score: 18000 },
+  { name: "NVIDIA GTX 1660", score: 14000 },
+  { name: "AMD RX 5500 XT", score: 12000 },
+  { name: "NVIDIA GTX 1060", score: 11000 },
+  { name: "AMD RX 570", score: 9000 }
+];
     
     // ฟังก์ชันสำหรับคำนวณคะแนน CPU
     function getCpuScore(cpuName) {
