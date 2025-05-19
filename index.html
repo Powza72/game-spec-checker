@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* เริ่มต้นสำหรับโหมดแสง */
+    /* Light mode base */
     body {
       background-color: #ffffff;
       color: #333;
@@ -24,7 +24,7 @@
       color: white;
     }
 
-    /* โหมดมืด */
+    /* Dark mode styles */
     body.dark {
       background-color: #121212;
       color: #f44336;
@@ -33,32 +33,108 @@
     body.dark a {
       color: #f44336;
     }
+    
+    body.dark nav {
+      background-color: #1e1e1e;
+    }
+    
+    body.dark nav h1,
+    body.dark nav a {
+      color: #ffffff;
+    }
 
     body.dark button {
       background-color: #f44336;
       color: white;
     }
+    
+    /* Toggle button styles */
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(145deg, #2d3748, #1a202c);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark-mode-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    .dark-mode-toggle:active {
+      transform: translateY(1px);
+    }
+    
+    .toggle-icon {
+      display: inline-flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .dark-mode-toggle:hover .toggle-icon {
+      transform: rotate(360deg);
+    }
+    
+    /* Dark mode specific toggle appearance */
+    body.dark .dark-mode-toggle {
+      background: linear-gradient(145deg, #f44336, #d32f2f);
+    }
+    
+    /* Animation for ripple effect */
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.7);
+      width: 100px;
+      height: 100px;
+      margin-top: -50px;
+      margin-left: -50px;
+      animation: ripple 1s;
+      opacity: 0;
+    }
   </style>
 </head>
 <body class="font-[Inter]">
-  <nav class ="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
+  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50 transition-colors duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
-      <div class="flex space-x-6">
+      <div class="flex space-x-6 items-center">
         <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Home</a>
         <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Input Specs</a>
         <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Results</a>
-        <button id="dark-mode-toggle" class="text-white bg-gray-800 px-1 py-1 rounded-lg hover: bg-black transition ease-in-out duration-300">
-          Toggle Dark Mode
+        <button id="dark-mode-toggle" class="dark-mode-toggle">
+          <span class="toggle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="toggle-text">Dark Mode</span>
         </button>
       </div>
     </div>
   </nav>
 
-  <section class="flex justify-center items-center min-h-screen ">
+  <section class="flex justify-center items-center min-h-screen transition-colors duration-300">
     <div class="max-w-md mx-auto text-center">
       <h1 class="font-bold text-2xl mb-2">Welcome to Game Compatibility Checker</h1>
-      <h4 class="text-gray-600 mb-4">
+      <h4 class="text-gray-600 mb-4 transition-colors duration-300">
         Check if your system can run the latest games. Simply select your game and enter your system specs to get started.
       </h4>
 
@@ -106,13 +182,14 @@
   </section>
 
   <script>
-    // เช็คว่าผู้ใช้เคยเลือกโหมดมืดหรือไม่
+    // Check if user previously selected dark mode
     if (localStorage.getItem("darkMode") === "enabled") {
       document.body.classList.add("dark");
+      updateDarkModeToggle(true);
     }
 
-    // ฟังก์ชันสำหรับสลับโหมดมืด
-    document.getElementById("dark-mode-toggle").addEventListener("click", function() {
+    // Function for dark mode toggle
+    document.getElementById("dark-mode-toggle").addEventListener("click", function(e) {
       const isDarkMode = document.body.classList.toggle("dark");
 
       if (isDarkMode) {
@@ -120,7 +197,57 @@
       } else {
         localStorage.setItem("darkMode", "disabled");
       }
+      
+      updateDarkModeToggle(isDarkMode);
+      
+      // Create ripple effect
+      const button = this;
+      const ripple = document.createElement("span");
+      ripple.classList.add("ripple");
+      
+      // Get position of mouse click relative to button
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      button.appendChild(ripple);
+      
+      // Remove ripple after animation completes
+      setTimeout(() => {
+        ripple.remove();
+      }, 1000);
     });
+    
+    // Update toggle appearance based on mode
+    function updateDarkModeToggle(isDark) {
+      const toggleIcon = document.querySelector(".toggle-icon");
+      const toggleText = document.querySelector(".toggle-text");
+      
+      if (isDark) {
+        // Switch to light mode icon (sun)
+        toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>`;
+        toggleText.textContent = "Light Mode";
+      } else {
+        // Switch to dark mode icon (moon)
+        toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>`;
+        toggleText.textContent = "Dark Mode";
+      }
+    }
 
     function goToInput() {
       const selectedGame = document.getElementById("game-select").value;
@@ -128,9 +255,12 @@
         alert("Please select a game.");
         return;
       }
-      localStorage.setItem("selectedGame", selectedGame); // เก็บชื่อเกม
-      window.location.href = "input.html"; // ไปยังหน้า input
-
+      localStorage.setItem("selectedGame", selectedGame); // Save game name
+      window.location.href = "input.html"; // Go to input page
+    }
+    
+    // Initialize AOS if it exists
+    if (typeof AOS !== 'undefined') {
       AOS.init();
     }
   </script>

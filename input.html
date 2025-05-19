@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* เริ่มต้นสำหรับโหมดแสง */
+    /* Light mode base */
     body {
       background-color: #ffffff;
       color: #333;
@@ -16,6 +16,7 @@
 
     a {
       color: #007bff;
+      transition: color 0.3s;
     }
 
     button {
@@ -23,126 +24,266 @@
       color: white;
     }
 
-    /* โหมดมืด */
+    /* Form elements transitions */
+    input, select {
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+
+    /* Dark mode styles */
     body.dark {
       background-color: #121212;
-      color: #f44336;
+      color: #f1f1f1;
     }
 
     body.dark a {
       color: #f44336;
+    }
+    
+    body.dark nav {
+      background-color: #1e1e1e;
+    }
+    
+    body.dark nav h1,
+    body.dark nav a {
+      color: #ffffff;
     }
 
     body.dark button {
       background-color: #f44336;
       color: white;
     }
+    
+    body.dark input,
+    body.dark select {
+      background-color: #2a2a2a;
+      border-color: #444;
+      color: #f1f1f1;
+    }
+    
+    body.dark label {
+      color: #f1f1f1;
+    }
+    
+    /* Toggle button styles */
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(145deg, #2d3748, #1a202c);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark-mode-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    .dark-mode-toggle:active {
+      transform: translateY(1px);
+    }
+    
+    .toggle-icon {
+      display: inline-flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .dark-mode-toggle:hover .toggle-icon {
+      transform: rotate(360deg);
+    }
+    
+    /* Dark mode specific toggle appearance */
+    body.dark .dark-mode-toggle {
+      background: linear-gradient(145deg, #f44336, #d32f2f);
+    }
+    
+    /* Animation for ripple effect */
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.7);
+      width: 100px;
+      height: 100px;
+      margin-top: -50px;
+      margin-left: -50px;
+      animation: ripple 1s;
+      opacity: 0;
+    }
+    
+    /* Form styling for dark mode */
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    
+    body.dark .form-container {
+      background-color: #1e1e1e;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #f44336;
+      box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
+    }
+    
+    body.dark .form-control {
+      background-color: #2a2a2a;
+      border-color: #444;
+      color: #f1f1f1;
+    }
   </style>
 </head>
 <body class="font-[Inter]">
-  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50">
+  <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50 transition-colors duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
-      <div class="flex space-x-6">
-        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Home</a>
-        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Input Specs</a>
-        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 ">Results</a>
-        <button id="dark-mode-toggle" class="text-white bg-gray-800 px-1 py-1 rounded-lg hover:scale-110 transition ease-in-out duration-300">
-          Toggle Dark Mode
+      <div class="flex space-x-6 items-center">
+        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Home</a>
+        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Input Specs</a>
+        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Results</a>
+        <button id="dark-mode-toggle" class="dark-mode-toggle">
+          <span class="toggle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="toggle-text">Dark Mode</span>
         </button>
       </div>
     </div>
   </nav>
 
-  <section class="flex justify-center items-center min-h-screen">
-    <div class="max-w-md mx-auto text-center">
-      <h1 class="font-bold text-2xl mb-2">Enter Your Specifications</h1>
+  <section class="flex justify-center items-center min-h-screen py-10 transition-colors duration-300">
+    <div class="max-w-md mx-auto form-container">
+      <h1 class="font-bold text-2xl mb-6 text-center">Enter Your Specifications</h1>
 
       <!-- CPU Dropdown -->
-      <div>
-        <label for="cpu" class="block font-medium">CPU (e.g. Intel Core i5-9400F):</label>
-        <select id="cpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      <div class="form-group">
+        <label for="cpu" class="form-label">CPU (e.g. Intel Core i5-9400F):</label>
+        <select id="cpu" class="form-control">
           <option value="">Select CPU</option>
         </select>
       </div>
 
       <!-- GPU Dropdown -->
-      <div>
-        <label for="gpu" class="block font-medium">GPU (e.g. GTX 1060 or RX 570):</label>
-        <select id="gpu" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      <div class="form-group">
+        <label for="gpu" class="form-label">GPU (e.g. GTX 1060 or RX 570):</label>
+        <select id="gpu" class="form-control">
           <option value="">Select GPU</option>
         </select>
       </div>
 
       <!-- RAM Input -->
-      <div>
-        <label for="ram" class="block font-medium">RAM (GB):</label>
-        <input type="number" id="ram" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      <div class="form-group">
+        <label for="ram" class="form-label">RAM (GB):</label>
+        <input type="number" id="ram" class="form-control">
       </div>
 
       <!-- Disk Space Input -->
-      <div>
-        <label for="space" class="block font-medium">Disk Space (GB):</label>
-        <input type="number" id="space" class="shadow-lg rounded-b-2xl px-4 py-2 w-80 border border-gray-300">
+      <div class="form-group">
+        <label for="space" class="form-label">Disk Space (GB):</label>
+        <input type="number" id="space" class="form-control">
       </div>
 
-      <button onclick="submitSpecs()" class="bg-red-500 text-white mt-4 shadow-lg rounded w-80 py-2 hover:bg-red-600 transition">Submit</button>
+      <button onclick="submitSpecs()" class="bg-red-500 text-white w-full py-3 rounded-xl hover:bg-red-600 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 active:translate-y-0 mt-6">
+        Submit
+      </button>
     </div>
   </section>
 
   <script>
-    // ข้อมูล CPU
+    // CPU data
     const cpuList = [
-  { name: "Intel Core i9-13900K", score: 35000 },
-  { name: "AMD Ryzen 9 7950X", score: 34000 },
-  { name: "Intel Core i7-13700K", score: 30000 },
-  { name: "AMD Ryzen 9 7900X", score: 29000 },
-  { name: "Intel Core i9-11900K", score: 28000 },
-  { name: "AMD Ryzen 7 7800X", score: 27000 },
-  { name: "AMD Ryzen 7 7700X", score: 26000 },
-  { name: "Intel Core i7-12700K", score: 25000 },
-  { name: "Intel Core i5-13600K", score: 24000 },
-  { name: "AMD Ryzen 5 7600X", score: 23000 },
-  { name: "Intel Core i5-12600K", score: 22000 },
-  { name: "AMD Ryzen 5 7600", score: 21000 },
-  { name: "Intel Core i5-12400F", score: 20000 },
-  { name: "Intel Core i7-11700K", score: 21000 },
-  { name: "AMD Ryzen 5 5600X", score: 22000 },
-  { name: "Intel Core i9-10900K", score: 23000 },
-  { name: "AMD Ryzen 7 5800X", score: 24000 },
-  { name: "Intel Core i5-11400F", score: 18000 },
-  { name: "AMD Ryzen 3 3300X", score: 17000 },
-  { name: "Intel Core i3-12100F", score: 15000 },
-];
+      { name: "Intel Core i9-13900K", score: 35000 },
+      { name: "AMD Ryzen 9 7950X", score: 34000 },
+      { name: "Intel Core i7-13700K", score: 30000 },
+      { name: "AMD Ryzen 9 7900X", score: 29000 },
+      { name: "Intel Core i9-11900K", score: 28000 },
+      { name: "AMD Ryzen 7 7800X", score: 27000 },
+      { name: "AMD Ryzen 7 7700X", score: 26000 },
+      { name: "Intel Core i7-12700K", score: 25000 },
+      { name: "Intel Core i5-13600K", score: 24000 },
+      { name: "AMD Ryzen 5 7600X", score: 23000 },
+      { name: "Intel Core i5-12600K", score: 22000 },
+      { name: "AMD Ryzen 5 7600", score: 21000 },
+      { name: "Intel Core i5-12400F", score: 20000 },
+      { name: "Intel Core i7-11700K", score: 21000 },
+      { name: "AMD Ryzen 5 5600X", score: 22000 },
+      { name: "Intel Core i9-10900K", score: 23000 },
+      { name: "AMD Ryzen 7 5800X", score: 24000 },
+      { name: "Intel Core i5-11400F", score: 18000 },
+      { name: "AMD Ryzen 3 3300X", score: 17000 },
+      { name: "Intel Core i3-12100F", score: 15000 },
+    ];
 
-cpuList.sort((a, b) => b.score - a.score);  // เรียงลำดับจากคะแนนสูงไปต่ำ
+    cpuList.sort((a, b) => b.score - a.score);  // Sort by score high to low
 
-const gpuList = [
-  { name: "NVIDIA RTX 3080", score: 29000 },
-  { name: "NVIDIA RTX 3070", score: 24000 },
-  { name: "AMD RX 6800", score: 25000 },
-  { name: "NVIDIA RTX 2080", score: 22000 },
-  { name: "AMD RX 5700 XT", score: 20000 },
-  { name: "NVIDIA RTX 3060", score: 18000 },
-  { name: "NVIDIA GTX 1660", score: 14000 },
-  { name: "AMD RX 5500 XT", score: 12000 },
-  { name: "NVIDIA GTX 1060", score: 11000 },
-  { name: "AMD RX 570", score: 9000 },
-  { name: "NVIDIA RTX 4090", score: 40000 },
-  { name: "NVIDIA RTX 4070 Ti", score: 35000 },
-  { name: "AMD RX 6900 XT", score: 33000 },
-  { name: "NVIDIA RTX 4080", score: 36000 },
-  { name: "NVIDIA GTX 1650", score: 10000 },
-  { name: "NVIDIA GTX 1070", score: 15000 },
-  { name: "AMD RX 580", score: 15000 },
-  { name: "NVIDIA GTX 1080 Ti", score: 17000 },
-  { name: "AMD RX 5700", score: 16000 },
-  { name: "NVIDIA RTX 3060 Ti", score: 23000 }
-];
+    const gpuList = [
+      { name: "NVIDIA RTX 4090", score: 40000 },
+      { name: "NVIDIA RTX 4080", score: 36000 },
+      { name: "NVIDIA RTX 4070 Ti", score: 35000 },
+      { name: "AMD RX 6900 XT", score: 33000 },
+      { name: "NVIDIA RTX 3080", score: 29000 },
+      { name: "AMD RX 6800", score: 25000 },
+      { name: "NVIDIA RTX 3070", score: 24000 },
+      { name: "NVIDIA RTX 3060 Ti", score: 23000 },
+      { name: "NVIDIA RTX 2080", score: 22000 },
+      { name: "AMD RX 5700 XT", score: 20000 },
+      { name: "NVIDIA RTX 3060", score: 18000 },
+      { name: "NVIDIA GTX 1080 Ti", score: 17000 },
+      { name: "AMD RX 5700", score: 16000 },
+      { name: "NVIDIA GTX 1070", score: 15000 },
+      { name: "AMD RX 580", score: 15000 },
+      { name: "NVIDIA GTX 1660", score: 14000 },
+      { name: "AMD RX 5500 XT", score: 12000 },
+      { name: "NVIDIA GTX 1060", score: 11000 },
+      { name: "NVIDIA GTX 1650", score: 10000 },
+      { name: "AMD RX 570", score: 9000 }
+    ];
 
-gpuList.sort((a, b) => b.score - a.score);  // เรียงลำดับจากคะแนนสูงไปต่ำ
+    gpuList.sort((a, b) => b.score - a.score);  // Sort by score high to low
 
-    // ฟังก์ชันเพื่อเติมข้อมูลลงใน dropdown
+    // Function to populate dropdown
     function populateDropdown(elementId, dataList) {
       const selectElement = document.getElementById(elementId);
       dataList.forEach(item => {
@@ -153,7 +294,7 @@ gpuList.sort((a, b) => b.score - a.score);  // เรียงลำดับจ
       });
     }
 
-    // ฟังก์ชันเมื่อกด Submit
+    // Function for submit
     function submitSpecs() {
       const cpu = document.getElementById("cpu").value;
       const gpu = document.getElementById("gpu").value;
@@ -172,23 +313,24 @@ gpuList.sort((a, b) => b.score - a.score);  // เรียงลำดับจ
         disk: parseInt(space)
       };
 
-      localStorage.setItem("userSpecs", JSON.stringify(userSpecs)); // เก็บสเปคของผู้ใช้
-      window.location.href = "result.html"; // ไปยังหน้า result.html
+      localStorage.setItem("userSpecs", JSON.stringify(userSpecs)); // Store user specs
+      window.location.href = "result.html"; // Go to result page
     }
 
-    // เมื่อโหลดหน้าให้เติมข้อมูล CPU และ GPU ลงใน dropdown
+    // When page loads, populate CPU and GPU dropdowns
     document.addEventListener('DOMContentLoaded', () => {
       populateDropdown('cpu', cpuList);
       populateDropdown('gpu', gpuList);
+      
+      // Check if user previously selected dark mode
+      if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark");
+        updateDarkModeToggle(true);
+      }
     });
 
-    // เช็คว่าผู้ใช้เคยเลือกโหมดมืดหรือไม่
-    if (localStorage.getItem("darkMode") === "enabled") {
-      document.body.classList.add("dark");
-    }
-
-    // ฟังก์ชันสำหรับสลับโหมดมืด
-    document.getElementById("dark-mode-toggle").addEventListener("click", function() {
+    // Dark mode toggle function
+    document.getElementById("dark-mode-toggle").addEventListener("click", function(e) {
       const isDarkMode = document.body.classList.toggle("dark");
 
       if (isDarkMode) {
@@ -196,7 +338,57 @@ gpuList.sort((a, b) => b.score - a.score);  // เรียงลำดับจ
       } else {
         localStorage.setItem("darkMode", "disabled");
       }
+      
+      updateDarkModeToggle(isDarkMode);
+      
+      // Create ripple effect
+      const button = this;
+      const ripple = document.createElement("span");
+      ripple.classList.add("ripple");
+      
+      // Get position of mouse click relative to button
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      button.appendChild(ripple);
+      
+      // Remove ripple after animation completes
+      setTimeout(() => {
+        ripple.remove();
+      }, 1000);
     });
+    
+    // Update toggle appearance based on mode
+    function updateDarkModeToggle(isDark) {
+      const toggleIcon = document.querySelector(".toggle-icon");
+      const toggleText = document.querySelector(".toggle-text");
+      
+      if (isDark) {
+        // Switch to light mode icon (sun)
+        toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>`;
+        toggleText.textContent = "Light Mode";
+      } else {
+        // Switch to dark mode icon (moon)
+        toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>`;
+        toggleText.textContent = "Dark Mode";
+      }
+    }
   </script>
 </body>
 </html>
