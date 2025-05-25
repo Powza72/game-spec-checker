@@ -38,11 +38,11 @@
     body.dark a {
       color: #f44336;
     }
-    
+
     body.dark nav {
       background-color: #1e1e1e;
     }
-    
+
     body.dark nav h1,
     body.dark nav a {
       color: #ffffff;
@@ -52,18 +52,18 @@
       background-color: #f44336;
       color: white;
     }
-    
+
     body.dark input,
     body.dark select {
       background-color: #2a2a2a;
       border-color: #444;
       color: #f1f1f1;
     }
-    
+
     body.dark label {
       color: #f1f1f1;
     }
-    
+
     /* Toggle button styles */
     .dark-mode-toggle {
       display: flex;
@@ -82,30 +82,30 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     .dark-mode-toggle:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
     }
-    
+
     .dark-mode-toggle:active {
       transform: translateY(1px);
     }
-    
+
     .toggle-icon {
       display: inline-flex;
       transition: transform 0.5s ease;
     }
-    
+
     .dark-mode-toggle:hover .toggle-icon {
       transform: rotate(360deg);
     }
-    
+
     /* Dark mode specific toggle appearance */
     body.dark .dark-mode-toggle {
       background: linear-gradient(145deg, #f44336, #d32f2f);
     }
-    
+
     /* Animation for ripple effect */
     @keyframes ripple {
       to {
@@ -113,7 +113,7 @@
         opacity: 0;
       }
     }
-    
+
     .ripple {
       position: absolute;
       border-radius: 50%;
@@ -125,7 +125,7 @@
       animation: ripple 1s;
       opacity: 0;
     }
-    
+
     /* Form styling for dark mode */
     .form-container {
       background-color: #ffffff;
@@ -134,23 +134,23 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s, box-shadow 0.3s;
     }
-    
+
     body.dark .form-container {
       background-color: #1e1e1e;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-    
+
     .form-group {
       margin-bottom: 20px;
     }
-    
+
     .form-label {
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
       transition: color 0.3s;
     }
-    
+
     .form-control {
       width: 100%;
       padding: 10px 15px;
@@ -159,29 +159,71 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
     }
-    
+
     .form-control:focus {
       outline: none;
       border-color: #f44336;
       box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
     }
-    
+
     body.dark .form-control {
       background-color: #2a2a2a;
       border-color: #444;
       color: #f1f1f1;
     }
+
+    /* Responsive adjustments for navigation */
+    @media (max-width: 768px) {
+      nav .max-w-7xl.flex {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav .flex.space-x-6 {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 1rem;
+        gap: 0.5rem; /* Adjust gap for stacked links */
+      }
+
+      nav .flex.space-x-6 a {
+        padding: 0.5rem 0;
+        width: fit-content; /* Allow links to naturally size */
+      }
+
+      nav .dark-mode-toggle {
+        margin-top: 1rem;
+        width: 100%; /* Full width button on small screens */
+        justify-content: center; /* Center content of toggle button */
+      }
+    }
+
+    /* Responsive adjustments for form */
+    @media (max-width: 640px) {
+      .form-container {
+        padding: 20px; /* Reduce padding on very small screens */
+      }
+
+      .form-label {
+        font-size: 0.9rem; /* Smaller font for labels on small screens */
+      }
+
+      .form-control {
+        padding: 8px 12px; /* Smaller padding for inputs on small screens */
+      }
+    }
   </style>
 </head>
 <body class="font-[Inter]">
   <nav class="bg-white px-6 py-4 shadow-lg rounded-b-2xl sticky top-0 z-50 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500">GameChecker</h1>
-      <div class="flex space-x-6 items-center">
-        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Home</a>
-        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Input Specs</a>
-        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300">Results</a>
-        <button id="dark-mode-toggle" class="dark-mode-toggle">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+      <h1 class="text-black text-xl font-bold hover:scale-110 transition-transform duration-500 mb-2 md:mb-0">GameChecker</h1>
+      <div class="flex flex-wrap justify-center space-x-4 md:space-x-6 items-center">
+        <a href="index.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 py-1">Home</a>
+        <a href="input.html" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 py-1">Input Specs</a>
+        <a href="#" class="text-black text-base hover:scale-110 transition ease-in-out duration-300 py-1">Results</a>
+        <button id="dark-mode-toggle" class="dark-mode-toggle mt-2 md:mt-0">
           <span class="toggle-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -193,36 +235,32 @@
     </div>
   </nav>
 
-  <section class="flex justify-center items-center min-h-screen py-10 transition-colors duration-300">
-    <div class="max-w-md mx-auto form-container">
-      <h1 class="font-bold text-2xl mb-6 text-center">Enter Your Specifications</h1>
+  <section class="flex justify-center items-center min-h-screen py-10 transition-colors duration-300 px-4">
+    <div class="max-w-md mx-auto form-container w-full">
+      <h1 class="font-bold text-2xl md:text-3xl mb-6 text-center">Enter Your Specifications</h1>
 
-      <!-- CPU Dropdown -->
       <div class="form-group">
         <label for="cpu" class="form-label">CPU (e.g. Intel Core i5-9400F):</label>
-        <select id="cpu" class="form-control">
+        <select id="cpu" class="form-control focus:outline-none focus:ring-2 focus:ring-red-500">
           <option value="">Select CPU</option>
         </select>
       </div>
 
-      <!-- GPU Dropdown -->
       <div class="form-group">
         <label for="gpu" class="form-label">GPU (e.g. GTX 1060 or RX 570):</label>
-        <select id="gpu" class="form-control">
+        <select id="gpu" class="form-control focus:outline-none focus:ring-2 focus:ring-red-500">
           <option value="">Select GPU</option>
         </select>
       </div>
 
-      <!-- RAM Input -->
       <div class="form-group">
         <label for="ram" class="form-label">RAM (GB):</label>
-        <input type="number" id="ram" class="form-control">
+        <input type="number" id="ram" class="form-control focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="e.g., 16">
       </div>
 
-      <!-- Disk Space Input -->
       <div class="form-group">
         <label for="space" class="form-label">Disk Space (GB):</label>
-        <input type="number" id="space" class="form-control">
+        <input type="number" id="space" class="form-control focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="e.g., 500">
       </div>
 
       <button onclick="submitSpecs()" class="bg-red-500 text-white w-full py-3 rounded-xl hover:bg-red-600 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 active:translate-y-0 mt-6">
@@ -321,7 +359,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       populateDropdown('cpu', cpuList);
       populateDropdown('gpu', gpuList);
-      
+
       // Check if user previously selected dark mode
       if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark");
@@ -338,35 +376,35 @@
       } else {
         localStorage.setItem("darkMode", "disabled");
       }
-      
+
       updateDarkModeToggle(isDarkMode);
-      
+
       // Create ripple effect
       const button = this;
       const ripple = document.createElement("span");
       ripple.classList.add("ripple");
-      
+
       // Get position of mouse click relative to button
       const rect = button.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
+
       ripple.style.left = `${x}px`;
       ripple.style.top = `${y}px`;
-      
+
       button.appendChild(ripple);
-      
+
       // Remove ripple after animation completes
       setTimeout(() => {
         ripple.remove();
       }, 1000);
     });
-    
+
     // Update toggle appearance based on mode
     function updateDarkModeToggle(isDark) {
       const toggleIcon = document.querySelector(".toggle-icon");
       const toggleText = document.querySelector(".toggle-text");
-      
+
       if (isDark) {
         // Switch to light mode icon (sun)
         toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
